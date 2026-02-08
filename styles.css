@@ -222,7 +222,7 @@ html {
         left: -100%; /* Off-screen to the left */
         top: 70px; /* Below the navbar */
         flex-direction: column; /* Stack items vertically */
-        background-color: var(--navbar-bg-scrolled);
+        background-color: black;
         width: 100%;
         text-align: center;
         transition: left var(--transition-speed) var(--transition-easing);
@@ -244,7 +244,7 @@ html {
     .nav-link {
         padding: 15px;
         width: 100%;
-        color: var(--navbar-text-scrolled);
+        color: white;
     }
     
     /* Hamburger animation when menu is open */
@@ -360,7 +360,7 @@ img {
 }
 
 .nav-link:hover {
-    color: #38bdf8;
+    color: #f8fbfc;
 }
 
 /* Hamburger */
@@ -498,7 +498,7 @@ img {
         top: 70px;
         left: 0;
         width: 100%;
-        background: white;
+        background: rgb(3, 3, 3);
         flex-direction: column;
         align-items: center;
         gap: 20px;
