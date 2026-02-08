@@ -1,0 +1,539 @@
+
+:root {
+    /* Initial navbar colors (transparent/light) */
+    --navbar-bg-initial: rgba(207, 187, 187, 0.1);
+    --navbar-text-initial: #ffffff;
+    
+    /* Scrolled navbar colors (solid/dark) */
+    --navbar-bg-scrolled: #080808;
+    --navbar-text-scrolled: #ffffff;
+    
+    /* Hover colors */
+    --hover-bg: rgba(255, 255, 255, 0.1);
+    --hover-text: #ffffff;
+    
+    /* Accent color */
+    --accent-color: #535455;
+    
+    /* Shadows */
+    --navbar-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    
+    /* Transitions - keeping them consistent */
+    --transition-speed: 0.3s;
+    --transition-easing: ease-in-out;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Makes width/height calculations predictable */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Smooth scrolling for anchor links - HTML property */
+html {
+    scroll-behavior: smooth;
+}
+
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* High value keeps it on top */
+    
+    /* Initial transparent background */
+    background-color: var(--navbar-bg-initial);
+    
+    /* Smooth transition when colors change */
+    transition: background-color var(--transition-speed) var(--transition-easing),
+                box-shadow var(--transition-speed) var(--transition-easing);
+    
+    /* Backdrop blur for modern glassmorphism effect */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+}
+
+
+.navbar.scrolled {
+    background-color: var(--navbar-bg-scrolled);
+    box-shadow: var(--navbar-shadow);
+}
+
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto; /* Centers the container */
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between; /* Logo left, menu right */
+    align-items: center;
+    height: 70px; /* Fixed height for consistency */
+}
+
+
+.nav-brand a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--navbar-text-initial);
+    text-decoration: none;
+    transition: color var(--transition-speed) var(--transition-easing);
+}
+
+
+.navbar.scrolled .nav-brand a {
+    color: var(--navbar-text-scrolled);
+}
+
+.nav-brand a:hover {
+    color: var(--accent-color);
+}
+
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 10px; /* Space between menu items - modern CSS! */
+}
+
+
+.nav-link {
+    display: block;
+    padding: 10px 20px;
+    color: var(--navbar-text-initial);
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 5px;
+    
+    
+    transition: 
+        color var(--transition-speed) var(--transition-easing),
+        background-color var(--transition-speed) var(--transition-easing),
+        transform 0.2s var(--transition-easing);
+}
+
+
+.navbar.scrolled .nav-link {
+    color: var(--navbar-text-scrolled);
+}
+
+
+.nav-link:hover {
+    background-color: var(--hover-bg);
+    color: var(--hover-text);
+    transform: translateY(-2px); /* Subtle lift effect */
+}
+
+
+.nav-link.active {
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+
+.nav-toggle {
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    gap: 5px;
+}
+
+.hamburger {
+    width: 25px;
+    height: 3px;
+    background-color: var(--navbar-text-initial);
+    border-radius: 3px;
+    transition: all var(--transition-speed) var(--transition-easing);
+}
+
+.navbar.scrolled .hamburger {
+    background-color: var(--navbar-text-scrolled);
+}
+
+
+.section {
+    min-height: 100vh; /* Full viewport height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px 50px; /* Top padding accounts for fixed navbar */
+}
+
+
+.section:nth-child(odd) {
+    background: linear-gradient(135deg, #575a65 0%, #71cbf8 100%);
+    color: white;
+}
+
+.section:nth-child(even) {
+    background: linear-gradient(135deg, #000000 0%, #c0e2f7 100%);
+    color: white;
+}
+
+/* Hero section special styling */
+.hero-section {
+    background: linear-gradient(135deg, #4a90e2 0%, #2c5aa0 100%);
+}
+
+.content {
+    max-width: 800px;
+    text-align: center;
+}
+
+.content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    animation: fadeInUp 0.8s ease-out; /* Entrance animation */
+}
+
+.content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.content p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+
+@media screen and (max-width: 768px) {
+    /* Show hamburger button */
+    .nav-toggle {
+        display: flex;
+    }
+    
+    /* 
+       Transform menu into vertical mobile menu
+       Hidden by default (off-screen)
+    */
+    .nav-menu {
+        position: fixed;
+        left: -100%; /* Off-screen to the left */
+        top: 70px; /* Below the navbar */
+        flex-direction: column; /* Stack items vertically */
+        background-color: var(--navbar-bg-scrolled);
+        width: 100%;
+        text-align: center;
+        transition: left var(--transition-speed) var(--transition-easing);
+        box-shadow: var(--navbar-shadow);
+        padding: 20px 0;
+        gap: 0;
+    }
+    
+    /* When menu is active (toggled), slide it in */
+    .nav-menu.active {
+        left: 0;
+    }
+    
+    /* Full-width menu items on mobile */
+    .nav-item {
+        width: 100%;
+    }
+    
+    .nav-link {
+        padding: 15px;
+        width: 100%;
+        color: var(--navbar-text-scrolled);
+    }
+    
+    /* Hamburger animation when menu is open */
+    .nav-toggle.active .hamburger:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+    
+    .nav-toggle.active .hamburger:nth-child(2) {
+        opacity: 0; /* Hide middle line */
+    }
+    
+    .nav-toggle.active .hamburger:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+    }
+    
+    /* Smaller text on mobile */
+    .content h1 {
+        font-size: 2rem;
+    }
+    
+    .content h2 {
+        font-size: 1.8rem;
+    }
+}
+
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.nav-link:focus,
+.nav-toggle:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Reduce motion for users who prefer it (accessibility) */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f8fafc;
+    color: #0f172a;
+    line-height: 1.6;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    padding: 0 5%;
+}
+
+.nav-brand a {
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #0f172a;
+}
+
+/* Menu */
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #334155;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    color: #38bdf8;
+}
+
+/* Hamburger */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+}
+
+.hamburger {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: #0f172a;
+    margin: 5px 0;
+}
+
+
+.section {
+    min-height: 100vh;
+    padding: 100px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    max-width: 900px;
+    text-align: center;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #e0f2fe, #f8fafc);
+}
+
+.hero-section h1 {
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+.hero-section p {
+    font-size: 18px;
+    color: #475569;
+    margin-bottom: 10px;
+}
+
+
+.footer {
+    background: #020617;
+    color: #e2e8f0;
+}
+
+.footer-top-line {
+    height: 3px;
+    background: linear-gradient(90deg, #38bdf8, #6366f1, #22c55e);
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 60px 5%;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 220px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    color: white;
+    margin-bottom: 15px;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #94a3b8;
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    color: #38bdf8;
+    padding-left: 5px;
+}
+
+.footer-socials a {
+    margin-right: 15px;
+    text-decoration: none;
+    color: #94a3b8;
+    transition: 0.3s;
+}
+
+.footer-socials a:hover {
+    color: #38bdf8;
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid #1e293b;
+    padding: 20px;
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+
+
+/* Tablet */
+@media (max-width: 992px) {
+    .hero-section h1 {
+        font-size: 34px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    /* Navbar */
+    .nav-toggle {
+        display: block;
+        cursor: pointer;
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 20px 0;
+        display: none;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    /* Sections */
+    .section {
+        padding: 80px 20px;
+    }
+
+    .hero-section h1 {
+        font-size: 28px;
+    }
+
+    .hero-section p {
+        font-size: 16px;
+    }
+
+    /* Footer */
+    .footer-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+}
+
+/* Small Phones */
+@media (max-width: 480px) {
+    .hero-section h1 {
+        font-size: 24px;
+    }
+}
