@@ -10,7 +10,7 @@
     
     /* Hover colors */
     --hover-bg: rgba(255, 255, 255, 0.1);
-    --hover-text: #ffffff;
+    --hover-text: #1a1919;
     
     /* Accent color */
     --accent-color: #535455;
@@ -360,7 +360,7 @@ img {
 }
 
 .nav-link:hover {
-    color: #f8fbfc;
+    color: #0ec2e1;
 }
 
 /* Hamburger */
